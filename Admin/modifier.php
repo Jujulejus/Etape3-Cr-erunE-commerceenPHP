@@ -1,5 +1,6 @@
 <?php
 session_start();
+$getData = $_GET;
 
 if(!isset($_SESSION['admin'])){
     header('location: http://localhost/Etape3.3/login/login.php');
@@ -7,7 +8,12 @@ if(!isset($_SESSION['admin'])){
 if(empty($_SESSION['admin'])) {
     header('location: http://localhost/Etape3.3/login/login.php');
 }
-
+//if(isset($_GET['pdt'])) {
+//    header("location: display.php");
+//}
+//if(!empty($_GET['pdt']) AND !is_numeric($_GET['pdt'])){
+//    header("location: display.php");
+//}
 require("../config/commandes.php") ?>
 
 
@@ -17,7 +23,7 @@ require("../config/commandes.php") ?>
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 
-        <title>Ajoutez un article sur WishAzon</title>
+        <title>Modifier un article sur WishAzon</title>
     </head>
     <body>
     <nav class="navbar navbar-expand-lg bg-body-tertiary">
@@ -32,8 +38,12 @@ require("../config/commandes.php") ?>
                         <a class="nav-link active" aria-current="page" href="http://localhost/Etape3.3/index.php?">Acceuil</a>
                     </li>
                     <li class="nav-item">
+                        <a class="nav-link" href="http://localhost/Etape3.3/Admin/indexadmin.php">Ajouter un article</a>
+                    </li>
+                    <li class="nav-item">
                         <a class="nav-link" href="http://localhost/Etape3.3/Admin/supprimer.php">Supprimer un article</a>
                     </li>
+
                     <li class="nav-item">
                         <a class="nav-link" href="http://localhost/Etape3.3/Admin/display.php">Liste des produits</a>
                     </li>
@@ -51,27 +61,27 @@ require("../config/commandes.php") ?>
             <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
                 <form method="post">
                     <div class="mb-3">
-                        <h1>Ajoutez Un Produit</h1>
+                        <h1>Modifier Un Produit</h1>
                         <label for="exampleInputEmail1" class="form-label">Lien vers l'image du produit</label>
-                        <input type="name" class="form-control" name="image" required>
+                        <input type="name" class="form-control" name="image" required <?php echo ("SELECT Image FROM products WHERE productID=?") ?>>
                     </div>
                     <div class="mb-3">
                         <label for="exampleInputPassword1" class="form-label">Nom du produit</label>
-                        <input type="text" class="form-control" name="Nom" required>
+                        <input type="text" class="form-control" name="Nom" required <?php echo ("SELECT Nom FROM products WHERE productID=?") ?>>
                     </div>
                     <div class="mb-3">
                         <label for="exampleInputPassword1" class="form-label">Prix</label>
-                        <input type="number" class="form-control" name="Prix" required>
+                        <input type="number" class="form-control" name="Prix" required <?php echo ("SELECT Prix FROM products WHERE productID=?") ?>>
                     </div>
                     <div class="mb-3">
                         <label for="exampleInputPassword1" class="form-label">Description du produit</label>
-                        <textarea class="form-control" name="Description" required></textarea>
+                        <textarea class="form-control" name="Description" required <?php echo ("SELECT Description FROM products WHERE productID=?") ?>></textarea>
                     </div>
                     <div>
                         <label for="exampleInputPassword1" class="form-label">Quantité Restante</label>
-                        <input type="number" class="form-control" name="QuantitéRestante" required>
+                        <input type="number" class="form-control" name="QuantitéRestante" required <?php echo ("SELECT QuantitéRestante FROM products WHERE productID=?") ?>>
                     </div><br><br><br><br>
-                    <button type="submit" class="btn btn-primary" name="valider">Ajouter ce produit</button>
+                    <button type="submit" class="btn btn-primary" name="valider">Mettre à jour ce produit</button>
                     <button type="button" class="btn btn-primary" id="quitter">Quitter</button>
                     <script> document.getElementById("quitter").addEventListener("click", redirect);
                         function redirect(){ window.location = "http://localhost/Etape3.3/index.php?"; }</script>
@@ -99,7 +109,7 @@ if(isset($_POST['valider'])){
             $description = htmlspecialchars(strip_tags($_POST['Description']));
             $QuatitéRestante= htmlspecialchars(strip_tags($_POST['QuantitéRestante']));
             try {
-                ajouter($image, $nom, $prix, $description, $QuatitéRestante);
+                modifier($image, $nom, $prix, $description, $QuatitéRestante);
                 redirectToUrl('http://localhost/Etape3.3/index.php?');}
             catch(Exception $e) {
                 $e->getMessage();

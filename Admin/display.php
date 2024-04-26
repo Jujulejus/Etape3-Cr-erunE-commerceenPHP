@@ -67,6 +67,7 @@ $mesproduits=afficher();?>
                             <th scope="col">Description</th>
                             <th scope="col">Quantité Restante</th>
                             <th scope="col">Modifier</th>
+                            <th scope="col">Supprimer</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -81,6 +82,15 @@ $mesproduits=afficher();?>
                             <td>
                                 <a href="http://localhost/Etape3.3/Admin/modifier.php?pdt=<?= $produit-> productID ?>">Modifier Le Produit ;)</a>
                             </td>
+                            <td>
+                                <a href="http://localhost/Etape3.3/Admin/boutonsupp.php?pdt=<?= $produit-> productID ?>">Supprimer Le Produit :)</a>
+                            </td>
+                            <td>
+
+                            </td>
+
+
+                            <td></td>
                         </tr>
 
                         <?php endforeach; ?>

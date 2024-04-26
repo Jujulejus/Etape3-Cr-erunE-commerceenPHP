@@ -103,6 +103,9 @@ $mesproduits=afficher();
 
 </head>
 <body>
+<?php if(!isset($_SESSION['admin'])){
+    $_SESSION['admin'] = array();{
+        echo "je suis connectééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééé";}}?>
 <svg xmlns="http://www.w3.org/2000/svg" class="d-none">
     <symbol id="check2" viewBox="0 0 16 16">
         <path d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z"/>
@@ -166,11 +169,13 @@ $mesproduits=afficher();
                 <div class="col-sm-4 offset-md-1 py-4">
                     <h4>Connexion</h4>
                     <ul class="list-unstyled">
+
                         <li><a href="Admin/indexadmin.php" class="text-white">Ajoutez votre produit !</a></li>
                         <li><a href="http://localhost/Etape3.3/Admin/supprimer.php" class="text-white">Supprimer Un Produit</a></li>
                         <li><a href="http://localhost/Etape3.3/login/login.php" class="text-white">Se connecter</a></li>
                         <li><a href="#" class="text-white">S'inscrire</a></li>
                         <li><a href="http://localhost/Etape3.3/login/logout.php" class="text-white">Se déconnecter</a></li>
+
 
                     </ul>
                 </div>
@@ -227,3 +232,4 @@ $mesproduits=afficher();
 
 </body>
 </html>
+}

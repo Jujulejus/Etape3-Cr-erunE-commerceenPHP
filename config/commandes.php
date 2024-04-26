@@ -27,6 +27,15 @@ function supprimer($ProductID){
         $req->execute(array($ProductID));
     }
 }
+function modifier($ProductID){
+    global $access;
+    if (require("connexion.php")){
+        $req=$access->prepare("UPDATE products SET Image,Nom,Prix,Description,QuantitéRestante WHERE productID=?");
+        $req->execute(array($Image,$Nom,$Prix,$Description,$QuantitéRestante));
+        $req->closeCursor();
+
+    }
+}
 function redirectToUrl($url)
 {
     header("Location: {$url}");
@@ -48,3 +57,5 @@ function getadmin($email, $motdepasse){
         $req->closeCursor();
     }
 }
+
+
