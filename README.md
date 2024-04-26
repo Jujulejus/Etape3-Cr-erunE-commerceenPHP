@@ -1,4 +1,4 @@
-Comment Installer le projet ?
+<h1>Comment Installer le projet ?</h1>
 
 Etape 1 : Cliquer sur le boutton "code" dans la page d'acceuil du projet github et télécharger le zip
 Etape 2 : Dézipper le zip et ouvrir le projet sur un éditeur comme visual studio,notepad++,phpstorm...7
