@@ -40,8 +40,6 @@ require("../config/commandes.php") ?>
             </ul>
             <div style="display: flex; justify-content: flex-end;">
                 <a href="http://localhost/Etape3.3/login/logout.php" class="btn btn-danger">Se déconnecter</a>
-
-            </div>
         </div>
     </div>
 </nav>

@@ -1,6 +1,9 @@
 <?php
+global $ProductID, $mesproduits;
+require_once('../config/connexion.php');
 session_start();
-$getData = $_GET;
+$getData = $_GET['pdt'];
+$lesproduit = $_GET['Image'];
 
 if(!isset($_SESSION['admin'])){
     header('location: http://localhost/Etape3.3/login/login.php');
@@ -63,23 +66,23 @@ require("../config/commandes.php") ?>
                     <div class="mb-3">
                         <h1>Modifier Un Produit</h1>
                         <label for="exampleInputEmail1" class="form-label">Lien vers l'image du produit</label>
-                        <input type="name" class="form-control" name="image" required <?php echo ("SELECT Image FROM products WHERE productID=?") ?>>
+                        <input type="name" class="form-control" name="image" required value="<?php echo $getData ?>">
                     </div>
                     <div class="mb-3">
                         <label for="exampleInputPassword1" class="form-label">Nom du produit</label>
-                        <input type="text" class="form-control" name="Nom" required <?php echo ("SELECT Nom FROM products WHERE productID=?") ?>>
+                        <input type="text" class="form-control" name="Nom" required value="<?php echo $getData ?>">
                     </div>
                     <div class="mb-3">
                         <label for="exampleInputPassword1" class="form-label">Prix</label>
-                        <input type="number" class="form-control" name="Prix" required <?php echo ("SELECT Prix FROM products WHERE productID=?") ?>>
+                        <input type="number" class="form-control" name="Prix" required value="<?php echo $getData ?>">
                     </div>
                     <div class="mb-3">
                         <label for="exampleInputPassword1" class="form-label">Description du produit</label>
-                        <textarea class="form-control" name="Description" required <?php echo ("SELECT Description FROM products WHERE productID=?") ?>></textarea>
+                        <textarea class="form-control" name="Description" required > <?php echo $getData ?></textarea>
                     </div>
                     <div>
                         <label for="exampleInputPassword1" class="form-label">Quantité Restante</label>
-                        <input type="number" class="form-control" name="QuantitéRestante" required <?php echo ("SELECT QuantitéRestante FROM products WHERE productID=?") ?>>
+                        <input type="number" class="form-control" name="QuantitéRestante" required value="<?php echo $getData ?>">
                     </div><br><br><br><br>
                     <button type="submit" class="btn btn-primary" name="valider">Mettre à jour ce produit</button>
                     <button type="button" class="btn btn-primary" id="quitter">Quitter</button>

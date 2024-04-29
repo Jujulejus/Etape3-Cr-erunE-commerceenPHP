@@ -105,7 +105,7 @@ $mesproduits=afficher();
 <body>
 <?php if(!isset($_SESSION['admin'])){
     $_SESSION['admin'] = array();{
-        echo "je suis connectééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééé";}}?>
+        echo "";}}?>
 <svg xmlns="http://www.w3.org/2000/svg" class="d-none">
     <symbol id="check2" viewBox="0 0 16 16">
         <path d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z"/>
@@ -175,6 +175,7 @@ $mesproduits=afficher();
                         <li><a href="http://localhost/Etape3.3/login/login.php" class="text-white">Se connecter</a></li>
                         <li><a href="#" class="text-white">S'inscrire</a></li>
                         <li><a href="http://localhost/Etape3.3/login/logout.php" class="text-white">Se déconnecter</a></li>
+                        <li><a href="http://localhost/Etape3.3/Admin/Panier.php" class="text-white">Accéder Au Panier</a></li>
 
 
                     </ul>
@@ -209,7 +210,7 @@ $mesproduits=afficher();
                             <FONT COLOR="#C7050E"><p class="card-text" >Quantité Restante : <?= ($produits->QuantitéRestante) ?></p></FONT>
                             <div class="d-flex justify-content-between align-items-center">
                                 <div class="btn-group">
-                                    <button type="button" class="btn btn-sm btn-outline-secondary">Ajouter Au Panier</button>
+                                    <button type="button" class="add" href=http://localhost/Etape3.3/Admin/Panier.php?pdt=<?= $produits-> productID ?>>Ajouter Au Panier</button>
                                 </div>
                                 <small class="text-body-secondary"><?= $produits->Prix ?><?php echo "€" ?></small>
                             </div>

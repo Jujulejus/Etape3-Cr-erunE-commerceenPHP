@@ -1,4 +1,14 @@
 <?php
+function afficherunproduit($ProductID){
+    global $access;
+        if(require("connexion.php")){
+            $req=$access->prepare("SELECT ProductID,Image,Nom,Prix,Description,QuantitéRestante FROM products WHERE ProductID=?");
+            $req->execute(array($ProductID));
+            $data=$req->fetchAll(PDO::FETCH_OBJ);
+            return $data;
+            $req->closeCursor();
+        }
+}
 function ajouter($Image,$Nom,$Prix,$Description,$QuantitéRestante){
     global $access;
     if(require("connexion.php")){
@@ -27,10 +37,10 @@ function supprimer($ProductID){
         $req->execute(array($ProductID));
     }
 }
-function modifier($ProductID){
+function modifier($Image,$Nom,$Prix,$Description,$QuantitéRestante){
     global $access;
     if (require("connexion.php")){
-        $req=$access->prepare("UPDATE products SET Image,Nom,Prix,Description,QuantitéRestante WHERE productID=?");
+        $req=$access->prepare("UPDATE products SET Image,Nom,Prix,Description,QuantitéRestante VALUES(?,?,?,?,?,0) WHERE productID=?");
         $req->execute(array($Image,$Nom,$Prix,$Description,$QuantitéRestante));
         $req->closeCursor();
 
