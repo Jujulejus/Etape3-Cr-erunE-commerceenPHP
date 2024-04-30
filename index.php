@@ -98,6 +98,24 @@ $mesproduits=afficher();
         .bd-mode-toggle .dropdown-menu .active .bi {
             display: block !important;
         }
+        table,th,tr{
+            text-align: center;
+        }
+        .title2{
+            text-align: center;
+            color: #66afe9;
+            background-color: #efefef;
+            padding 2%;
+        }
+        h2{
+            text-align: center;
+            color: #66afe9;
+            background-color: #efefef;
+            padding: 2%;
+        }
+        table th{
+            background-color: #efefef;
+        }
     </style>
 
 
@@ -222,7 +240,78 @@ $mesproduits=afficher();
         </div>
     </div>
 <?php endforeach; ?>
+    <?php if(isset($_POST['add'])){
+        if(isset($_SESSION['panier'])){
+            $item_array_id = array_column($_SESSION['panier'], 'productID');
+            if(!in_array($_GET['productID'], $item_array_id)){
+                $count = count($_SESSION['panier']);
+                $item_array = array(
+                    'productID' => $_GET['productID'],
+                    'Nom' => $_POST['nom'],
+                    'Prix' => $_POST['prix'],
+                    'QuantitéVoulu' => $_POST['QuantitéVoulu'],
+                );
+                $_SESSION['panier'][$count] = $item_array;
+                echo '<script>window.location="cart.php"</script>';
+            }
+            else {
+                $item_array = array(
+                    'productID' => $_GET['productID'],
+                    'Nom' => $_POST['nom'],
+                    'Prix' => $_POST['prix'],
+                    'QuantitéVoulu' => $_POST['QuantitéVoulu'],
+                );
+                $_SESSION['panier'][0] = $item_array;
+            }
+        }
+        if(isset($_GET['action'])){
+            if($_GET['action'] == 'delete'){
+                foreach($_SESSION['panier'] as $mesproduits => $produits){
+                    if($produits['productID'] == $_GET["productID"]){
+                        unset($_SESSION['panier'][$mesproduits]);
+                        echo '<script>alert("le produit à été retiré!") </script>';
+                        echo '<script>window.location="cart.php"</script>';
+                    };
+                }
+            }
+        }
+    } ?>
+    <div style="clear: both"></div>
+    <h3 class="title2">Détail Du Panier</h3>
+    <div class="table table-bordered"></div>
+    <table><tr>
+        <th width="30%">Nom Du Produit   </th>
+        <th width="13%">Prix   </th>
+            <th width="10%">Description   </th>
+        <th width="10%">Quantité Restante   </th>
+        <th width="10%">Prix Total   </th>
+        <th width="17%">Supprimer   </th>
+    </tr>
+    <?php if(!empty($_SESSION['panier'])){
+        $total = 0;
+        foreach($_SESSION['panier'] as $mesproduits => $produits){
+        }
+    }?>
+    <tr>
+        <td><?php echo $produits -> Nom;?></td>
+        <td><?php echo $produits -> Prix;?></td>
+        <td><?php echo $produits -> Description;?></td>
+        <td><?php echo $produits -> QuantitéRestante;?></td>
+<!--        <td>--><?php //echo $produits -> QuantitéVoulu;?><!--</td>-->
+<!--        <td>--><?php //echo number_format($produits -> Prix * $produits -> Prix,2); ?><!-- </td>-->
+        <td><?php echo $produits -> Prix ?> </td>
+        <td><button><a href="http://localhost/Etape3.3/Admin/supprimer.php">Supprimer l'article</a></button></td>
 
+        <td><a href="Cart.php?action=detete&id=<?php echo $produits['productID']; ?>"><span class="text-danger">Supprimer l'article :(</span></a></td>
+    </tr>
+    <?php
+    $total = $total + ($produits['QuantitéVoulu'] * $produits['Prix']);
+    ?>
+    <tr>
+        <td colspan="3" align="right">Total</td>
+        <th align="right"><?php echo number_format($produits,2); ?></th>
+    </tr></table>
+    <?php ?>
 </main>
 
 <footer class="text-body-secondary py-5">
