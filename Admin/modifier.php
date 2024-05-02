@@ -1,9 +1,8 @@
 <?php
-global $ProductID, $mesproduits;
+global $ProductID, $mesproduits, $access;
 require_once('../config/connexion.php');
 session_start();
 $getData = $_GET['pdt'];
-$lesproduit = $_GET['Image'];
 
 if(!isset($_SESSION['admin'])){
     header('location: http://localhost/Etape3.3/login/login.php');
@@ -17,7 +16,12 @@ if(empty($_SESSION['admin'])) {
 //if(!empty($_GET['pdt']) AND !is_numeric($_GET['pdt'])){
 //    header("location: display.php");
 //}
-require("../config/commandes.php") ?>
+require("../config/commandes.php");
+$afficheNomstp=afficherNom($_GET['pdt']);
+$afficheImagestp=afficherImage($_GET['pdt']);
+$afficheDecriptionstp=afficherDescription($_GET['pdt']);
+$affichePrixstp=afficherPrix($_GET['pdt']);
+$afficheQuantitéRestantestp=afficherQuantitéRestante($_GET['pdt']); ?>
 
 
     <!DOCTYPE html>
@@ -66,29 +70,30 @@ require("../config/commandes.php") ?>
                     <div class="mb-3">
                         <h1>Modifier Un Produit</h1>
                         <label for="exampleInputEmail1" class="form-label">Lien vers l'image du produit</label>
-                        <input type="name" class="form-control" name="image" required value="<?php echo $getData ?>">
+                        <input type="name" class="form-control" name="image" required > <?php echo json_encode($afficheImagestp)?>
                     </div>
                     <div class="mb-3">
                         <label for="exampleInputPassword1" class="form-label">Nom du produit</label>
-                        <input type="text" class="form-control" name="Nom" required value="<?php echo $getData ?>">
+                        <input type="text" class="form-control" name="Nom" required> <?php echo json_encode($afficheNomstp) ?>
                     </div>
                     <div class="mb-3">
                         <label for="exampleInputPassword1" class="form-label">Prix</label>
-                        <input type="number" class="form-control" name="Prix" required value="<?php echo $getData ?>">
+                        <input type="number" class="form-control" name="Prix" required> <?php echo json_encode($affichePrixstp) ?>
                     </div>
                     <div class="mb-3">
                         <label for="exampleInputPassword1" class="form-label">Description du produit</label>
-                        <textarea class="form-control" name="Description" required > <?php echo $getData ?></textarea>
+                        <textarea class="form-control" name="Description" required > <?php echo json_encode($afficheDecriptionstp) ?></textarea>
                     </div>
                     <div>
                         <label for="exampleInputPassword1" class="form-label">Quantité Restante</label>
-                        <input type="number" class="form-control" name="QuantitéRestante" required value="<?php echo $getData ?>">
+                        <input type="number" class="form-control" name="QuantitéRestante" required> <?php echo json_encode($afficheQuantitéRestantestp) ?>
                     </div><br><br><br><br>
                     <button type="submit" class="btn btn-primary" name="valider">Mettre à jour ce produit</button>
                     <button type="button" class="btn btn-primary" id="quitter">Quitter</button>
                     <script> document.getElementById("quitter").addEventListener("click", redirect);
                         function redirect(){ window.location = "http://localhost/Etape3.3/index.php?"; }</script>
                 </form>
+            <h3>ID DU PRODUIT QUE VOUS MODIFIEZ : <?php echo $getData ?></h3>
 
                 <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
 

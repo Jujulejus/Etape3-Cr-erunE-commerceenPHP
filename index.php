@@ -94,6 +94,8 @@ $mesproduits=afficher();
         .bd-mode-toggle {
             z-index: 1500;
         }
+        tr {
+            border-width: 2px}
 
         .bd-mode-toggle .dropdown-menu .active .bi {
             display: block !important;
@@ -292,7 +294,7 @@ $mesproduits=afficher();
         foreach($_SESSION['panier'] as $mesproduits => $produits){
         }
     }?>
-    <tr>
+        <?php foreach($mesproduits as $produits): ?><tr>
         <td><?php echo $produits -> Nom;?></td>
         <td><?php echo $produits -> Prix;?></td>
         <td><?php echo $produits -> Description;?></td>
@@ -300,7 +302,7 @@ $mesproduits=afficher();
 <!--        <td>--><?php //echo $produits -> QuantitéVoulu;?><!--</td>-->
 <!--        <td>--><?php //echo number_format($produits -> Prix * $produits -> Prix,2); ?><!-- </td>-->
         <td><?php echo $produits -> Prix ?> </td>
-        <td><button><a href="http://localhost/Etape3.3/Admin/supprimer.php">Supprimer l'article</a></button></td>
+        <td><button><a href="http://localhost/Etape3.3/Admin/supprimer.php">Supprimer l'article</a></button></td><?php endforeach ?>
 
         <td><a href="Cart.php?action=detete&id=<?php echo $produits['productID']; ?>"><span class="text-danger">Supprimer l'article :(</span></a></td>
     </tr>

@@ -80,7 +80,7 @@ $mesproduits=afficher();?>
                             <td><?= $produit->Description?></td>
                             <td><?= $produit->QuantitéRestante?></td>
                             <td>
-                                <a href="http://localhost/Etape3.3/Admin/modifier.php?pdt=<?= $produit-> productID ?>">Modifier Le Produit ;)</a>
+                                <a href="http://localhost/Etape3.3/Admin/modifier.php?pdt=<?= $produit-> productID?>">Modifier Le Produit ;)</a>
                             </td>
                             <td>
                                 <a href="http://localhost/Etape3.3/Admin/supprimer.php?pdt=<?= $produit-> productID,$produit-> Nom ?>">Supprimer Le Produit :)</a>

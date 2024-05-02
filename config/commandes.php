@@ -68,4 +68,51 @@ function getadmin($email, $motdepasse){
     }
 }
 
+function afficherNom($productId){
+    global $access;
+    if (require("connexion.php")) {
+        $req = $access->prepare("SELECT Nom FROM products WHERE ProductID=?");
+        $req->execute(array($productId));
+        $data = $req->fetchAll(PDO::FETCH_OBJ);
+        return $data;
+    }
+}
+function afficherDescription($productId){
+    global $access;
+    if (require("connexion.php")) {
+        $req = $access->prepare("SELECT Description FROM products WHERE ProductID=?");
+        $req->execute(array($productId));
+        $data = $req->fetchAll(PDO::FETCH_OBJ);
+        return $data;
+    }
+}
+function afficherPrix($productId){
+    global $access;
+    if (require("connexion.php")) {
+        $req = $access->prepare("SELECT Prix FROM products WHERE ProductID=?");
+        $req->execute(array($productId));
+        $data = $req->fetchAll(PDO::FETCH_OBJ);
+        return $data;
+    }
+}
+function afficherQuantitéRestante($productId){
+    global $access;
+    if (require("connexion.php")) {
+        $req = $access->prepare("SELECT QuantitéRestante FROM products WHERE ProductID=?");
+        $req->execute(array($productId));
+        $data = $req->fetchAll(PDO::FETCH_OBJ);
+        return $data;
+    }
+}
+function afficherImage($productId){
+    global $access;
+    if (require("connexion.php")) {
+        $req = $access->prepare("SELECT Image FROM products WHERE ProductID=?");
+        $req->execute(array($productId));
+        $data = $req->fetchAll(PDO::FETCH_OBJ);
+        return $data;
+    }
+}
+
+
 
