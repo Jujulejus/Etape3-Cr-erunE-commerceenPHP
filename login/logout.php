@@ -6,6 +6,6 @@ if(isset($_SESSION['admin'])){
     session_destroy();
     header('location: http://localhost/Etape3.3/index.php?');
 }else{
-    header('location: http://localhost/Etape3.3/login/login.php');
+    header('location: http://localhost/Etape3.3/index.php?');
 }
 ?>

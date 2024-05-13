@@ -94,15 +94,38 @@ $mesproduits=afficher();
         .bd-mode-toggle {
             z-index: 1500;
         }
+        tr {
+            border-width: 2px}
 
         .bd-mode-toggle .dropdown-menu .active .bi {
             display: block !important;
+        }
+        table,th,tr{
+            text-align: center;
+        }
+        .title2{
+            text-align: center;
+            color: #66afe9;
+            background-color: #efefef;
+            padding 2%;
+        }
+        h2{
+            text-align: center;
+            color: #66afe9;
+            background-color: #efefef;
+            padding: 2%;
+        }
+        table th{
+            background-color: #efefef;
         }
     </style>
 
 
 </head>
 <body>
+<?php if(!isset($_SESSION['admin'])){
+    $_SESSION['admin'] = array();{
+        echo "";}}?>
 <svg xmlns="http://www.w3.org/2000/svg" class="d-none">
     <symbol id="check2" viewBox="0 0 16 16">
         <path d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z"/>
@@ -166,11 +189,14 @@ $mesproduits=afficher();
                 <div class="col-sm-4 offset-md-1 py-4">
                     <h4>Connexion</h4>
                     <ul class="list-unstyled">
+
                         <li><a href="Admin/indexadmin.php" class="text-white">Ajoutez votre produit !</a></li>
                         <li><a href="http://localhost/Etape3.3/Admin/supprimer.php" class="text-white">Supprimer Un Produit</a></li>
                         <li><a href="http://localhost/Etape3.3/login/login.php" class="text-white">Se connecter</a></li>
                         <li><a href="#" class="text-white">S'inscrire</a></li>
                         <li><a href="http://localhost/Etape3.3/login/logout.php" class="text-white">Se déconnecter</a></li>
+                        <li><a href="http://localhost/Etape3.3/Admin/Panier.php" class="text-white">Accéder Au Panier</a></li>
+
 
                     </ul>
                 </div>
@@ -204,7 +230,7 @@ $mesproduits=afficher();
                             <FONT COLOR="#C7050E"><p class="card-text" >Quantité Restante : <?= ($produits->QuantitéRestante) ?></p></FONT>
                             <div class="d-flex justify-content-between align-items-center">
                                 <div class="btn-group">
-                                    <button type="button" class="btn btn-sm btn-outline-secondary">Ajouter Au Panier</button>
+                                    <button type="button" class="add" href=http://localhost/Etape3.3/Admin/Panier.php?pdt=<?= $produits-> productID ?>>Ajouter Au Panier</button>
                                 </div>
                                 <small class="text-body-secondary"><?= $produits->Prix ?><?php echo "€" ?></small>
                             </div>
@@ -216,7 +242,82 @@ $mesproduits=afficher();
         </div>
     </div>
 <?php endforeach; ?>
+    <?php if(isset($_POST['add'])){
+        if(isset($_SESSION['panier'])){
+            $item_array_id = array_column($_SESSION['panier'], 'productID');
+            if(!in_array($_GET['productID'], $item_array_id)){
+                $count = count($_SESSION['panier']);
+                $item_array = array(
+                    'productID' => $_GET['productID'],
+                    'Nom' => $_POST['nom'],
+                    'Prix' => $_POST['prix'],
+                    'QuantitéVoulu' => $_POST['QuantitéVoulu'],
+                );
+                $_SESSION['panier'][$count] = $item_array;
+                echo '<script>window.location="cart.php"</script>';
+            }
+            else {
+                $item_array = array(
+                    'productID' => $_GET['productID'],
+                    'Nom' => $_POST['nom'],
+                    'Prix' => $_POST['prix'],
+                    'QuantitéVoulu' => $_POST['QuantitéVoulu'],
+                );
+                $_SESSION['panier'][0] = $item_array;
+            }
+        }
+        if(isset($_GET['action'])){
+            if($_GET['action'] == 'delete'){
+                foreach($_SESSION['panier'] as $mesproduits => $produits){
+                    if($produits['productID'] == $_GET["productID"]){
+                        unset($_SESSION['panier'][$mesproduits]);
+                        echo '<script>alert("le produit à été retiré!") </script>';
+                        echo '<script>window.location="cart.php"</script>';
+                    };
+                }
+            }
+        }
+    } ?>
+    <div style="clear: both"></div>
+    <h3 class="title2">Détail Du Panier</h3>
+    <div class="table table-bordered"></div>
+    <table><tr>
+        <th width="10%">Image   </th>
+        <th width="30%">Nom Du Produit   </th>
+        <th width="13%">Prix   </th>
+            <th width="10%">Description   </th>
+        <th width="10%">Quantité Restante   </th>
+        <th width="10%">Prix Total   </th>
 
+        <th width="17%">Supprimer   </th>
+    </tr>
+    <?php if(!empty($_SESSION['panier'])){
+        $total = 0;
+        foreach($_SESSION['panier'] as $mesproduits => $produits){
+        }
+    }?>
+        <?php foreach($mesproduits as $produits): ?><tr>
+            <td><img src="<?= $produits->Image?>" style="width: 100%"></td>
+        <td><?php echo $produits -> Nom;?></td>
+        <td><?php echo $produits -> Prix;?></td>
+        <td><?php echo $produits -> Description;?></td>
+        <td><?php echo $produits -> QuantitéRestante;?></td>
+<!--        <td>--><?php //echo $produits -> QuantitéVoulu;?><!--</td>-->
+<!--        <td>--><?php //echo number_format($produits -> Prix * $produits -> Prix,2); ?><!-- </td>-->
+        <td><?php echo $produits -> Prix ?> </td>
+
+        <td><button><a href="http://localhost/Etape3.3/Admin/supprimer.php">Supprimer l'article</a></button></td><?php endforeach ?>
+
+        <td><a href="Cart.php?action=detete&id=<?php echo $produits['productID']; ?>"><span class="text-danger">Supprimer l'article :(</span></a></td>
+    </tr>
+    <?php
+    $total = $total + ($produits['QuantitéVoulu'] * $produits['Prix']);
+    ?>
+    <tr>
+        <td colspan="3" align="right">Total</td>
+        <th align="right"><?php echo number_format($produits,2); ?></th>
+    </tr></table>
+    <?php ?>
 </main>
 
 <footer class="text-body-secondary py-5">
@@ -227,3 +328,4 @@ $mesproduits=afficher();
 
 </body>
 </html>
+}
