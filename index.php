@@ -282,11 +282,13 @@ $mesproduits=afficher();
     <h3 class="title2">Détail Du Panier</h3>
     <div class="table table-bordered"></div>
     <table><tr>
+        <th width="10%">Image   </th>
         <th width="30%">Nom Du Produit   </th>
         <th width="13%">Prix   </th>
             <th width="10%">Description   </th>
         <th width="10%">Quantité Restante   </th>
         <th width="10%">Prix Total   </th>
+
         <th width="17%">Supprimer   </th>
     </tr>
     <?php if(!empty($_SESSION['panier'])){
@@ -295,6 +297,7 @@ $mesproduits=afficher();
         }
     }?>
         <?php foreach($mesproduits as $produits): ?><tr>
+            <td><img src="<?= $produits->Image?>" style="width: 100%"></td>
         <td><?php echo $produits -> Nom;?></td>
         <td><?php echo $produits -> Prix;?></td>
         <td><?php echo $produits -> Description;?></td>
@@ -302,6 +305,7 @@ $mesproduits=afficher();
 <!--        <td>--><?php //echo $produits -> QuantitéVoulu;?><!--</td>-->
 <!--        <td>--><?php //echo number_format($produits -> Prix * $produits -> Prix,2); ?><!-- </td>-->
         <td><?php echo $produits -> Prix ?> </td>
+
         <td><button><a href="http://localhost/Etape3.3/Admin/supprimer.php">Supprimer l'article</a></button></td><?php endforeach ?>
 
         <td><a href="Cart.php?action=detete&id=<?php echo $produits['productID']; ?>"><span class="text-danger">Supprimer l'article :(</span></a></td>
